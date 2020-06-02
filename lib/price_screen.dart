@@ -27,6 +27,7 @@ class _PriceScreenState extends State<PriceScreen> {
         onChanged: (value) {
        setState(() {
          selectedCurrency = value;
+         getData();
 });
 },
     );
@@ -46,12 +47,12 @@ CupertinoPicker iOSPicker(){
   );
 }
 
-String bitcoinValueInCA = '?';
+String bitcoinValue = '?';
  void getData ()async {
    try{
-     double data = await CoinData().getCoinData();
+     var data = await CoinData().getCoinData();
      setState(() {
-       bitcoinValueInCA = data.toStringAsFixed(0);
+      bitcoinValue = data.toStringAsFixed(0);
      });
    } catch (e){
      print(e);
@@ -60,6 +61,7 @@ String bitcoinValueInCA = '?';
 @override
 void initState(){
    super.initState();
+   getData();
 }
 
 
@@ -90,7 +92,7 @@ void initState(){
               child: Padding(
                 padding: EdgeInsets.symmetric(vertical: 15.0, horizontal: 28.0),
                 child: Text(
-                  '1 BTC = ? USD',
+                  '1 BTC = $bitcoinValue $selectedCurrency',
                   textAlign: TextAlign.center,
                   style: TextStyle(
                     fontSize: 20.0,
