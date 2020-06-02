@@ -1,7 +1,9 @@
+
 import 'package:flutter/material.dart';
 import 'package:flutter/cupertino.dart';
 import 'coin_data.dart';
 import 'dart:io' show Platform;
+
 class PriceScreen extends StatefulWidget {
   @override
   _PriceScreenState createState() => _PriceScreenState();
@@ -43,6 +45,26 @@ CupertinoPicker iOSPicker(){
     children: pickerItems,
   );
 }
+
+String bitcoinValueInCA = '?';
+ void getData ()async {
+   try{
+     double data = await CoinData().getCoinData();
+     setState(() {
+       bitcoinValueInCA = data.toStringAsFixed(0);
+     });
+   } catch (e){
+     print(e);
+   }
+ }
+@override
+void initState(){
+   super.initState();
+}
+
+
+
+
 
 
 
